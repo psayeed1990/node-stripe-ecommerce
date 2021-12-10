@@ -1,29 +1,17 @@
-exports.getAll = (route) => async (req, res, next) => {
-    res.status(200).json({
-        message: "Factory list fetched successfully!",
-    });
-};
+const {
+    getOne,
+    getAll,
+    createOne,
+    updateOne,
+    deleteOne,
+} = require("../handlers/factoryHandler");
 
-exports.create = (route) => async (req, res, next) => {
-    res.status(200).json({
-        message: "Factory list created successfully!",
-    });
-};
+exports.getAll = (route) => getAll(route);
 
-exports.getOne = (route) => async (req, res, next) => {
-    res.status(200).json({
-        message: "Factory fetched successfully!",
-    });
-};
+exports.createOne = (route) => createOne(route);
 
-exports.update = (route) => async (req, res, next) => {
-    res.status(200).json({
-        message: "Factory updated successfully!",
-    });
-};
+exports.getOne = (route) => getOne(route);
 
-exports.delete = (route) => async (req, res, next) => {
-    res.status(200).json({
-        message: "Factory deleted successfully!",
-    });
-};
+exports.updateOne = (route) => updateOne(route);
+
+exports.deleteOne = (route) => deleteOne(route);

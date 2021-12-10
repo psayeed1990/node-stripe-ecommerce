@@ -7,13 +7,13 @@ module.exports = (routename) => {
     router
         .route("/")
         .get(factoryController.getAll(routename))
-        .post(factoryController.create(routename));
+        .post(factoryController.createOne(routename));
 
     router
         .route("/:id")
         .get(factoryController.getOne(routename))
-        .patch(factoryController.update(routename))
-        .delete(factoryController.delete(routename));
+        .patch(factoryController.updateOne(routename))
+        .delete(factoryController.deleteOne(routename));
 
     return router;
 };
