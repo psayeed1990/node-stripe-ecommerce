@@ -10,17 +10,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //import routes
-const productRoutes = require("./routes/productRoutes");
-const orderRoutes = require("./routes/orderRoutes");
-const categoryRoutes = require("./routes/categoryRoutes");
-const userRoutes = require("./routes/userRoutes");
+// const productRoutes = require("./routes/productRoutes");
+// const orderRoutes = require("./routes/orderRoutes");
+// const categoryRoutes = require("./routes/categoryRoutes");
+// const userRoutes = require("./routes/userRoutes");
+const factoryRoutes = require("./routes/factoryRoutes");
+
+app.use("/api/product", factoryRoutes("product"));
 
 //set routes
-app.use("/api/products", productRoutes);
-app.use("/api/orders", orderRoutes);
-app.use("/api/categories", categoryRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes);
+// app.use("/api/products", productRoutes);
+// app.use("/api/orders", orderRoutes);
+// app.use("/api/categories", categoryRoutes);
+// app.use("/api/users", userRoutes);
+// app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 3000;
 
