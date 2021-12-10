@@ -1,6 +1,8 @@
 //import mongoose and define the schema
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+//import bcrypt
+const bcrypt = require("bcryptjs");
 
 //setup user schema
 const UserSchema = new Schema({
@@ -45,8 +47,10 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-    isAdmin: {
-        type: Boolean,
+    role: {
+        //type enum
+        type: String,
+        enum: ["user", "admin"],
         required: true,
     },
     isActive: {
@@ -58,6 +62,13 @@ const UserSchema = new Schema({
         default: Date.now,
     },
 });
+
+//hash the password before saving
+UserSchema.pre("save", async function (next) {
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+});
+user.password;
 
 //export UserSchema
 module.exports = User = mongoose.model("User", UserSchema);
