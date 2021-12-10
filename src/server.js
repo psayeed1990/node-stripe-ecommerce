@@ -2,6 +2,9 @@
 const express = require("express");
 const app = express();
 
+//import mongoose
+const mongoose = require("mongoose");
+
 //config dotenv
 require("dotenv").config();
 
@@ -9,7 +12,6 @@ require("dotenv").config();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//import models
 //import models
 const [User, Product, Category, Order] = [
     require("./models/User"),
@@ -25,6 +27,19 @@ app.use("/api/product", factoryRoutes(Product));
 app.use("/api/orders", factoryRoutes(Order));
 app.use("/api/categories", factoryRoutes(Category));
 app.use("/api/users", factoryRoutes(User));
+
+//connect to db
+mongoose
+    .connect(process.env.DB, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => {
+        console.log("Connected to DB");
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
 const PORT = process.env.PORT || 3000;
 

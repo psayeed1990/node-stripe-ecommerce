@@ -19,7 +19,7 @@ exports.deleteOne = (Model, isPrivate) => async (req, res, next) => {
         });
     }
 
-    res.status(204).json({
+    return res.status(204).json({
         status: "success",
         data: null,
     });
