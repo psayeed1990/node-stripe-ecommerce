@@ -22,11 +22,12 @@ const [User, Product, Category, Order] = [
 
 //import routes
 const factoryRoutes = require("./routes/factoryRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 app.use("/api/product", factoryRoutes(Product));
 app.use("/api/orders", factoryRoutes(Order));
 app.use("/api/categories", factoryRoutes(Category));
-app.use("/api/users", factoryRoutes(User));
+app.use("/api/users", userRoutes);
 
 //connect to db
 mongoose

@@ -6,11 +6,6 @@ const bcrypt = require("bcryptjs");
 
 //setup user schema
 const UserSchema = new Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-    },
     password: {
         type: String,
         required: true,

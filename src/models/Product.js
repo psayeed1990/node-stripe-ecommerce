@@ -23,7 +23,6 @@ var ProductSchema = new Schema({
     },
     image: {
         type: String,
-        required: true,
     },
     created_at: {
         type: Date,
