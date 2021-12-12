@@ -15,10 +15,12 @@
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
+        "express-unless": "^1.0.0",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.1.1",
         "morgan": "^1.10.0",
-        "stripe": "^8.193.0"
+        "stripe": "^8.193.0",
+        "unless": "^0.1.1"
     },
     "devDependencies": {
         "nodemon": "^2.0.15"

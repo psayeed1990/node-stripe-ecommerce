@@ -60,6 +60,8 @@ exports.createOne = (Model) => async (req, res, next) => {
         if (res.user) {
             req.body.user = res.user.id;
         }
+
+        console.log(req.body);
         const doc = await Model.create(req.body);
 
         res.status(201).json({

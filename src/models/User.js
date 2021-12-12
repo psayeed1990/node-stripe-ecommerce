@@ -16,6 +16,9 @@ const UserSchema = new Schema({
         required: true,
         minlength: 8,
     },
+    token: {
+        type: String,
+    },
     firstName: {
         type: String,
         required: true,
