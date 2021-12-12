@@ -1,19 +1,25 @@
 //import express route and define routes
 const express = require("express");
 const router = express.Router();
-const factoryController = require("../controllers/factoryController");
+const {
+    getAll,
+    getOne,
+    updateOne,
+    createOne,
+    deleteOne,
+} = require("../controllers/factoryController");
+
+const { protect } = require("./../controllers/userController");
+
 module.exports = (Model) => {
     //set user routes
-    router
-        .route("/")
-        .get(factoryController.getAll(Model))
-        .post(factoryController.createOne(Model));
+    router.route("/").get(getAll(Model)).post(protect, createOne(Model));
 
     router
         .route("/:id")
-        .get(factoryController.getOne(Model))
-        .patch(factoryController.updateOne(Model))
-        .delete(factoryController.deleteOne(Model));
+        .get(getOne(Model))
+        .patch(protect, updateOne(Model))
+        .delete(protect, deleteOne(Model));
 
     return router;
 };

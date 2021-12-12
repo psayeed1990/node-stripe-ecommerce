@@ -6,13 +6,15 @@ const bcrypt = require("bcryptjs");
 
 //setup user schema
 const UserSchema = new Schema({
-    password: {
-        type: String,
-        required: true,
-    },
     email: {
         type: String,
         required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 8,
     },
     firstName: {
         type: String,
@@ -45,13 +47,11 @@ const UserSchema = new Schema({
     role: {
         //type enum
         type: String,
+        default: "user",
         enum: ["user", "admin"],
         required: true,
     },
-    isActive: {
-        type: Boolean,
-        required: true,
-    },
+
     created_at: {
         type: Date,
         default: Date.now,
@@ -63,6 +63,14 @@ UserSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, 10);
     next();
 });
+
+//compare password
+UserSchema.methods.correctPassword = async function (
+    candidatePassword,
+    userPassword
+) {
+    return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 //export UserSchema
 module.exports = User = mongoose.model("User", UserSchema);
