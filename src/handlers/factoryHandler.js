@@ -56,14 +56,27 @@ exports.updateOne = (Model, isPrivate) => async (req, res, next) => {
 };
 
 exports.createOne = (Model) => async (req, res, next) => {
-    const doc = await Model.create(req.body);
+    try {
+        if (res.user) {
+            req.body.user = res.user.id;
+        }
+        const doc = await Model.create(req.body);
 
-    res.status(201).json({
-        status: "success",
-        data: {
-            data: doc,
-        },
-    });
+        res.status(201).json({
+            status: "success",
+            data: {
+                data: doc,
+            },
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({
+            status: "Fail",
+            data: {
+                data: err,
+            },
+        });
+    }
 };
 
 exports.getOne = (Model, isPrivate, popOptions) => async (req, res, next) => {
@@ -109,18 +122,6 @@ exports.getOne = (Model, isPrivate, popOptions) => async (req, res, next) => {
 };
 
 exports.getAll = (Model, isPrivate) => async (req, res, next) => {
-    // To allow for nested GET reviews on tour (hack)
-    // const { page, size } = req.query;
-    // console.log(page, size);
-    // let filter = {};
-    // if (req.params.userId) filter = { user: req.params.userId };
-    // if (isPrivate) filter = { user: req.user.id };
-    // const features = new APIFeatures(Model.find(filter), req.query)
-    //     .filter()
-    //     .sort()
-    //     .limitFields()
-    //     .paginate();
-    // const doc = await features.query.explain();
     const doc = await Model.find();
 
     // SEND RESPONSE

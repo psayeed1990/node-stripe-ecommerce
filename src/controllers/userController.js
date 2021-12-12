@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 const User = require("./../models/User");
 
-//token generation,
 const signToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
@@ -28,6 +27,8 @@ const createSendToken = (user, statusCode, req, res) => {
 
     res.status(statusCode).json({
         status: "success",
+        refreshToken: refreshToken,
+        jwt: token,
         data: {
             user,
         },
@@ -125,6 +126,7 @@ exports.protect = async (req, res, next) => {
     }
 
     if (!token) {
+        console.log("No token found");
         return res.status(401).json({
             status: "fail",
             data: {
